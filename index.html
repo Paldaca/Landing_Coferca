@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COFER | Ingeniería, Procura y Construcción</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cofer: {
+                            orange: '#FF7609',
+                            orangeHover: '#E65100',
+                            orangeLight: '#FF9800',
+                            dark: '#0A1349',
+                            slate: '#1E293B',
+                            lightBg: '#F8FAFC',
+                            cardBg: '#FFFFFF',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Montserrat', 'sans-serif'],
+                    },
+                    animation: {
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        .glass-header {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #393B6D;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #E65100;
+            border-radius: 4px;
+        }
+
+        /* Scroll Reveal Effect setup */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hover Zoom Card Effects */
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Gradient mask for infinite marquee fade */
+        .marquee-container {
+            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+            -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+        }
+
+        /* Mobile Menu Smooth Animated Transition */
+        #mobile-menu {
+            transition: max-height 0.4s ease-in-out, opacity 0.3s ease-in-out;
+            max-height: 0;
+            opacity: 0;
+            overflow: hidden;
+        }
+        #mobile-menu.open {
+            max-height: 400px;
+            opacity: 1;
+        }
+
+        /* Smart Nav Class for hiding header smoothly */
+        .nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        /* Animación para la imagen de fondo (Ken Burns Effect) */
+        @keyframes kenburns {
+            0% {
+                transform: scale(1) translate(0, 0);
+            }
+            50% {
+                transform: scale(1.1) translate(-1.5%, -1%);
+            }
+            100% {
+                transform: scale(1) translate(0, 0);
+            }
+        }
+
+        .animate-hero-bg {
+            animation: kenburns 15s ease-in-out infinite;
+            will-change: transform;
+        }
+
+        /* Animación sutil para la malla del patrón geométrico */
+        @keyframes meshMove {
+            0% {
+                background-position: 0px 0px;
+            }
+            100% {
+                background-position: 48px 48px;
+            }
+        }
+
+        .animate-mesh {
+            animation: meshMove 20s linear infinite;
+        }
+
+        /* Animaciones para la ventana modal */
+        .modal-backdrop-transition {
+            transition: opacity 0.3s ease-out;
+        }
+        
+        .modal-content-transition {
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease-out;
+        }
+    </style>
+</head>
+<body class="font-sans bg-cofer-lightBg text-slate-800 antialiased selection:bg-cofer-orange selection:text-white">
+
+    <!-- HEADER / NAVIGATION (Smart Nav: Ocultar al bajar, Mostrar al subir) -->
+    <header class="fixed top-0 left-0 w-full z-50 glass-header text-cofer-dark border-b border-slate-200 transition-transform duration-300 ease-in-out shadow-sm" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-24">
+                
+                <!-- Logo con etiqueta <img> referenciando coferca.svg -->
+                <a href="#inicio" class="flex items-center space-x-3 group">
+                    <div class="h-16 flex items-center justify-center group-hover:scale-105 transition-transform">
+                        <img src="cofer-.svg" 
+                             alt="COFER Logo" 
+                             class="h-full w-auto object-contain" />
+                    </div>
+                </a>
+
+                <!-- Desktop Navigation -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="#inicio" class="text-cofer-dark hover:text-cofer-orange transition-colors">Inicio</a>
+                    <a href="#nosotros" class="text-slate-700 hover:text-cofer-orange transition-colors">Nosotros</a>
+                    <a href="#servicios" class="text-slate-700 hover:text-cofer-orange transition-colors">Servicios</a>
+                    <a href="#clientes" class="text-slate-700 hover:text-cofer-orange transition-colors">Clientes</a>
+                    <a href="#contacto" class="text-slate-700 hover:text-cofer-orange transition-colors">Contacto</a>
+                </nav>
+
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center">
+                    <a href="#contacto" class="bg-cofer-orange hover:bg-cofer-orangeHover text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg shadow-cofer-orange/30 hover:shadow-cofer-orange/50 flex items-center gap-2">
+                        <span>Contactar Ahora</span>
+                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    </a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" type="button" class="text-cofer-dark hover:text-cofer-orange focus:outline-none p-2" aria-label="Abrir menú">
+                        <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div class="md:hidden bg-white border-b border-slate-200" id="mobile-menu">
+            <div class="px-4 pt-3 pb-6 space-y-3 text-base font-medium">
+                <a href="#inicio" class="mobile-link block px-3 py-2 rounded-md text-cofer-dark hover:bg-cofer-orange hover:text-white transition-colors">Inicio</a>
+                <a href="#nosotros" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Nosotros</a>
+                <a href="#servicios" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Servicios</a>
+                <a href="#clientes" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Clientes</a>
+                <a href="#contacto" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Contacto</a>
+                <a href="#contacto" class="mobile-link block w-full text-center mt-4 bg-cofer-orange text-white py-3 rounded-lg font-semibold shadow-md">Contactar Ahora</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative min-h-screen pt-20 flex items-center bg-cofer-dark text-white overflow-hidden">
+        <!-- Imagen de Fondo con Movimiento Panorámico Suave -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=80" 
+                 alt="Ingeniería y Construcción Cofer" 
+                 class="w-full h-full object-cover object-center opacity-40 animate-hero-bg" />
+            
+            <!-- Gradiente para mantener la legibilidad de los textos -->
+            <div class="absolute inset-0 bg-gradient-to-r from-cofer-dark via-cofer-dark/95 to-cofer-dark/60"></div>
+        </div>
+
+        <!-- Malla de Puntos Animada -->
+        <div class="absolute inset-0 opacity-30 bg-[radial-gradient(#E65100_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none animate-mesh"></div>
+
+        <!-- Luces Resplandecientes de Fondo -->
+        <div class="absolute -right-20 -top-20 w-96 h-96 bg-cofer-orange/20 rounded-full blur-3xl pointer-events-none animate-pulse"></div>
+        <div class="absolute -left-40 -bottom-40 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl pointer-events-none"></div>
+
+        <!-- Contenido Principal -->
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-10 space-y-8 text-center lg:text-left reveal">
+                    <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-none text-xs sm:text-sm font-semibold tracking-wide">
+                        <span class="w-2 h-2 rounded-full bg-cofer-orange animate-ping"></span>
+                        <span class="text-cofer-orangeLight">20 Años de Trayectoria en Venezuela</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                        PLANIFICACIÓN Y ACCIÓN. <br/>ASÍ DAMOS VIDA A CADA PROYECTO
+                    </h1>
+
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                        Somos especialistas en soluciones integrales de 
+                        <span class="text-cofer-orange font-semibold">Ingeniería, Procura y Construcción (IPC)</span>. 
+                        Impulsamos el desarrollo de infraestructuras de vanguardia.
+                    </p>
+
+                    <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
+                        <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-house text-cofer-orange"></i> Residencial
+                        </span>
+                        <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-industry text-cofer-orange"></i> Industrial
+                        </span>
+                        <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
+                            <i class="fa-solid fa-building text-cofer-orange"></i> Comercial
+                        </span>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#servicios" class="w-full sm:w-auto px-8 py-4 bg-cofer-orange hover:bg-cofer-orangeHover text-white rounded-lg font-bold shadow-lg shadow-cofer-orange/30 transition-all text-center">
+                            Explorar Servicios
+                        </a>
+                        <a href="#contacto" class="w-full sm:w-auto px-8 py-4 hover:bg-slate-700 border border-slate-700 text-white rounded-lg font-bold transition-all text-center">
+                            Solicitar Cotización
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT US SECTION -->
+    <section id="nosotros" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <div class="relative reveal">
+                    <div class="aspect-video sm:aspect-square bg-slate-100 rounded-2xl overflow-hidden shadow-2xl relative border border-slate-200">
+                        <img src="corporeo.jpeg" 
+                             alt="Cofer Ingeniería e Infraestructura" 
+                             class="w-full h-full object-cover" />
+                    </div>
+                </div>
+
+                <div class="space-y-6 reveal">
+                    <div>
+                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase">Sobre Nosotros</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2 leading-tight">
+                            Solidez, Trayectoria e Innovación Técnica
+                        </h2>
+                    </div>
+
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Somos una empresa con <strong>20 años de experiencia</strong> dedicada a la ejecución de proyectos IPC 
+                        (<span class="text-cofer-dark font-semibold">Ingeniería, Procura y Construcción</span>). Ofrecemos un portafolio
+                        de servicios de ingeniería civil, mecánica y eléctrica, diseñados para atender las necesidades específicas en el área: 
+                        <span class="text-cofer-orange font-semibold">Residencial, Industrial y Comercial</span>.
+                    </p>
+
+                    <p class="text-slate-600 text-base leading-relaxed">
+                        Dos décadas de experiencia en Venezuela nos han permitido desarrollar la ejecución de proyectos integrales, 
+                        garantizando eficiencia, calidad y cumplimiento en cada fase.
+                    </p>
+
+                    <div class="p-5 bg-slate-50 border-l-4 border-cofer-orange rounded-r-xl my-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                        <p class="text-lg font-bold text-cofer-dark italic">
+                            "En Ingeniería Cofer, construimos con visión de futuro."
+                        </p>
+                        <!-- Botón para abrir Modal -->
+                        <button id="open-modal-btn" class="inline-flex items-center justify-center gap-2 px-4 py-4 bg-cofer-orange text-white hover:orangeHover text-xs font-bold rounded-lg transition-colors whitespace-nowrap shadow-md">
+                            <i class="fa-solid fa-bullseye text-white"></i>
+                            <span>Ver Misión, Visión y Valores</span>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100">
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">100%</span>
+                            <span class="text-xs text-slate-500">Compromiso</span>
+                        </div>
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">3</span>
+                            <span class="text-xs text-slate-500">Sectores Clave</span>
+                        </div>
+                        <div>
+                            <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">IPC</span>
+                            <span class="text-xs text-slate-500">Llave en Mano</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- VENTANA MODAL CON LOGO EN LA CABECERA Y FONDO DARK -->
+    <div id="about-modal" class="fixed inset-0 z-50 hidden opacity-0 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 modal-backdrop-transition">
+        <div id="modal-content" class="bg-slate-900/80 text-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl border border-slate-700/60 my-8 scale-95 opacity-0 modal-content-transition">
+            <!-- Botón Cerrar -->
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-cofer-orange p-2 transition-colors">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+
+            <!-- Cabecera con Logo de Footer -->
+            <div class="border-b border-slate-700/80 pb-4 mb-6 pr-8">
+                <div class="h-10 flex items-center">
+                    <img src="cofer-b.svg" 
+                         alt="COFER Logo Modal" 
+                         class="h-full w-auto object-contain brightness-125 contrast-125" />
+                </div>
+            </div>
+
+            <div class="space-y-6 max-h-[70vh] overflow-y-auto pr-2">
+                <!-- Misión -->
+                <div class="p-5 rounded-xl border-cofer-orange border border-slate-700">
+                    <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-bullseye text-cofer-orange"></i> Misión
+                    </h4>
+                    <p class="text-slate-300 text-sm leading-loose">
+                        Ejecutar proyectos de Ingeniería, Procura y Construcción (IPC) en los sectores residencial, industrial y comercial, entregando obras seguras, funcionales y de alta especificación. Garantizar resultados a través de procesos técnicos rigurosos, una gestión eficiente de suministros y una sólida cultura de seguridad e integridad, consolidándonos como el aliado estratégico de confianza para nuestros clientes en cada etapa del proyecto.
+                    </p>
+                </div>
+
+                <!-- Visión -->
+                <div class="p-5 rounded-xl border-blue-500 border border-slate-700">
+                    <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-eye text-cofer-orange"></i> Visión
+                    </h4>
+                    <p class="text-slate-300 text-sm leading-loose">
+                        Ser la empresa referente en la ejecución integral de proyectos IPC en Venezuela, destacándonos por la excelencia operativa simultánea en el ámbito residencial, industrial y comercial. Nos proyectamos consolidados en al menos tres regiones del país, respaldados por nuestra solidez técnica, riguroso cumplimiento de plazos y presupuestos, y un Sistema de Gestión de Calidad certificado bajo la norma ISO 9001.
+                    </p>
+                </div>
+
+                <!-- Valores Corporativos -->
+                <div class="p-5 rounded-xl border-cofer-orange border border-slate-700">
+                    <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-4">
+                        <i class="fa-solid fa-shield-halved text-cofer-orange"></i> Valores Corporativos
+                    </h4>
+                    <ul class="space-y-4 text-sm text-slate-300">
+                        <li class="leading-relaxed">
+                            <strong class="text-white">Integridad:</strong> Cumplir rigurosamente con los alcances, costos y tiempos pactados, comunicando de manera transparente cualquier desviación del proyecto.
+                        </li>
+                        <li class="leading-relaxed">
+                            <strong class="text-white">Seguridad:</strong> Proteger la vida y la salud de nuestros trabajadores, clientes y terceros como prioridad no negociable, por encima de cualquier cronograma o presupuesto.
+                        </li>
+                        <li class="leading-relaxed">
+                            <strong class="text-white">Excelencia técnica:</strong> Ejecutar cada diseño, cálculo y proceso constructivo bajo estrictas normativas, rechazando los atajos y las improvisaciones.
+                        </li>
+                        <li class="leading-relaxed">
+                            <strong class="text-white">Orientación al cliente:</strong> Comprender las necesidades operativas del cliente —ya sea para vivir, producir o comercializar— para ir más allá de lo planteado en un plano.
+                        </li>
+                        <li class="leading-relaxed">
+                            <strong class="text-white">Responsabilidad y cumplimiento:</strong> Asegurar la sostenibilidad financiera, ambiental y contractual en cada obra que ejecutamos.
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="mt-6 pt-4 border-t border-slate-700/80 text-right">
+                <button id="close-modal-footer-btn" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-lg text-sm transition-colors border border-slate-600">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- CLIENTS / INFINITE LOGO IMAGE CAROUSEL SECTION -->
+    <section id="clientes" class="py-40 bg-cofer-dark text-white border-y border-slate-800 overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 mb-8 text-center">
+            
+            <h2 class="text-4xl font-bold text-cofer-orange mt-1">Confianza & Respaldos Corporativos</h2>
+            <br/><br/>
+        </div>
+
+        <!-- Marquee Track con Imágenes SVG -->
+        <div class="relative w-full overflow-hidden marquee-container py-2">
+            <div class="flex whitespace-nowrap animate-marquee items-center gap-12 sm:gap-16 w-max">
+                
+                <!-- Set 1 de Logos (SVG Images) -->
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="Coca-Cola_Femsa_Logo-n.png" alt="Cliente 1" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="Farmahorro_logo-n.png" alt="Cliente 2" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="digitel.png" alt="Cliente 3" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="saas.png" alt="Cliente 4" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="televen.png" alt="Cliente 5" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="movistar.png" alt="Cliente 6" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="parmalat_logo.png" alt="Cliente 6" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+
+                <!-- Set 2 de Logos (Duplicado exacto para carrusel infinito) -->
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="Coca-Cola_Femsa_Logo-n.png" alt="Cliente 1" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="Farmahorro_logo-n.png" alt="Cliente 2" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="digitel.png" alt="Cliente 3" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="saas.png" alt="Cliente 4" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="televen.png" alt="Cliente 5" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="movistar.png" alt="Cliente 6" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+                <div class="flex items-center justify-center h-20 w-36 px-4">
+                    <img src="parmalat_logo.png" alt="Cliente 6" class="max-h-20 max-w-full object-contain filter grayscale brightness-200 opacity-100 hover:grayscale-0 hover:opacity-100 transition-all">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES SECTION -->
+    <section id="servicios" class="py-20 bg-cofer-lightBg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16 reveal">
+                <h2 class="text-4xl sm:text-4xl font-extrabold text-cofer-dark mt-2">Nuestros Servicios</h2>
+                <p class="text-slate-600 mt-4 text-base">
+                    Diseñados para atender las demandas técnicas y estructurales más exigentes de Venezuela.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- ÁREA RESIDENCIAL -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden card-hover flex flex-col reveal">
+                    <div class="relative h-68 bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=800&q=80" 
+                             alt="Área Residencial Cofer" 
+                             class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6 flex items-center gap-3 text-white">
+                            <div class="p-2.5 bg-cofer-orange rounded-lg">
+                                <i class="fa-solid fa-house text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Área Residencial</h3>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                Convertimos ideas en espacios habitables de calidad. Ya sea que desee construir una vivienda unifamiliar desde cero, o llevar a cabo una remodelación de alto impacto, Cofer es su aliado estratégico.
+                            </p>
+
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                                Servicios:
+                            </h4>
+
+                            <ul class="space-y-3 text-sm text-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Construcción Civil</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Instalaciones eléctricas, mecánicas y gas</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Diseño y Remodelaciones</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Gerencia de Obras</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-slate-100">
+                            <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
+                                <span>Consultar Proyecto</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÁREA INDUSTRIAL -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden card-hover flex flex-col reveal">
+                    <div class="relative h-68 bg-slate-800">
+                        <img src="refineria.jpg" 
+                             alt="Área Industrial Cofer" 
+                             class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6 flex items-center gap-3 text-white">
+                            <div class="p-2.5 bg-cofer-orange rounded-lg">
+                                <i class="fa-solid fa-industry text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Área Industrial</h3>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                La infraestructura y maquinaria de su empresa son la base de su productividad. Ofrecemos servicios multidisciplinarios para mantener sus plantas operando con máxima eficiencia y confiabilidad.
+                            </p>
+
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                                Servicios:
+                            </h4>
+
+                            <ul class="space-y-3 text-sm text-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Proyectos de Ingeniería</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Mantenimiento y reparación de tanques</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Servicios Eléctricos y Mecánicos</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Fabricación de estructuras metálicas y galpones</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Construcción Civil con estándares de calidad</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-slate-100">
+                            <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
+                                <span>Consultar Proyecto</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ÁREA COMERCIAL -->
+                <div class="bg-white rounded-2xl border border-slate-200/80 overflow-hidden card-hover flex flex-col reveal">
+                    <div class="relative h-68 bg-slate-800">
+                        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=800&q=80" 
+                             alt="Área Comercial Cofer" 
+                             class="w-full h-full object-cover" />
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900/90 to-transparent"></div>
+                        <div class="absolute bottom-4 left-6 flex items-center gap-3 text-white">
+                            <div class="p-2.5 bg-cofer-orange rounded-lg">
+                                <i class="fa-solid fa-building text-xl"></i>
+                            </div>
+                            <h3 class="text-xl font-bold">Área Comercial</h3>
+                        </div>
+                    </div>
+
+                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                        <div>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                                Diseñamos y ejecutamos espacios comerciales funcionales que potencian el atractivo corporativo de su marca, cumpliendo estrictas regulaciones urbanísticas y técnicas.
+                            </p>
+
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                                Servicios:
+                            </h4>
+
+                            <ul class="space-y-3 text-sm text-slate-700">
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Remodelación e interiorismo comercial</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Adecuación de locales y oficinas</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Mantenimiento de infraestructura e iluminación</span>
+                                </li>
+                                <li class="flex items-start gap-3">
+                                    <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
+                                    <span>Sistemas de climatización y seguridad</span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="mt-8 pt-4 border-t border-slate-100">
+                            <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
+                                <span>Consultar Proyecto</span>
+                                <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- BLOQUE 4: PROPUESTA DE VALOR / DIFERENCIACIÓN -->
+    <section class="py-20 bg-cofer-dark text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-cofer-orange font-bold uppercase text-xs tracking-widest">Ventaja Competitiva</span>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight mt-1 mb-4">¿Por qué elegir a INGENIERÍA COFER?</h2>
+                <p class="text-slate-400 text-base sm:text-lg">Nos respaldan procedimientos rigurosos de contratación y ejecución con clientes industriales exigentes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- 1. PLANIFICACIÓN -->
+                <div class="bg-cofer-dark p-8 rounded-2xl border border-slate-200/80 card-hover flex flex-col justify-between reveal">
+                    <div>
+                        <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
+                            <i class="fa-solid fa-compass-drafting"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Planificación</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                            Planificamos cada etapa con análisis de factibilidad, diseño conceptual y control preciso de recursos, optimizando los tiempos de ejecución IPC para evitar imprevistos y garantizar la rentabilidad.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 2. SEGUIMIENTO -->
+                <div class="bg-cofer-dark p-8 rounded-2xl border border-slate-200/80 card-hover flex flex-col justify-between reveal">
+                    <div>
+                        <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
+                            <i class="fa-solid fa-chart-line"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Seguimiento</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                            Monitoreamos continuamente el avance. Coordinamos la procura de materiales e insumos en tiempo real para garantizar un flujo de trabajo constante y alineado con los hitos establecidos.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 3. CONTROL -->
+                <div class="bg-cofer-dark p-8 rounded-2xl border border-slate-200/80 card-hover flex flex-col justify-between reveal">
+                    <div>
+                        <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
+                            <i class="fa-solid fa-list-check"></i>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">Control</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                            Aseguramos la máxima calidad (QA/QC) y el cumplimiento de normativas de seguridad e ingeniería en cada etapa, garantizando la entrega final impecable de su proyecto.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contacto" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info -->
+                <div class="lg:col-span-5 space-y-8 reveal">
+                    <div>
+                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase">Atención Inmediata</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2">Hablemos de su Próximo Proyecto</h2>
+                        <p class="text-slate-600 mt-4 text-sm sm:text-base">
+                            Estamos listos para brindarle la mejor propuesta adaptada a sus requerimientos técnicos y presupuestarios.
+                        </p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="p-3 bg-cofer-orange/10 text-cofer-orange rounded-lg">
+                                <i class="fa-solid fa-location-dot text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-cofer-dark text-sm">Ubicación</h4>
+                                <p class="text-xs text-slate-600 mt-1">Caracas y Anzoátegui</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="p-3 bg-cofer-orange/10 text-cofer-orange rounded-lg">
+                                <i class="fa-solid fa-envelope text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-cofer-dark text-sm">Correo Electrónico</h4>
+                                <p class="text-xs text-slate-600 mt-1">info@coferca.com.ve</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-50 border border-slate-100">
+                            <div class="p-3 bg-cofer-orange/10 text-cofer-orange rounded-lg">
+                                <i class="fa-brands fa-whatsapp text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-cofer-dark text-sm">Whatsapp</h4>
+                                <p class="text-xs text-slate-600 mt-1">+58 (412) 2768540</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form -->
+                <div class="lg:col-span-7 reveal">
+                    <form id="contact-form" action="contacto.php" method="POST" class="bg-cofer-lightBg p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-lg space-y-6">
+                        <h3 class="text-xl font-bold text-cofer-dark mb-4">Enviar Mensaje Directo</h3>
+
+                        <!-- Mensaje de notificación / respuesta -->
+                        <div id="form-notification" class="hidden p-4 rounded-lg text-sm font-semibold transition-all"></div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Nombre Completo *</label>
+                                <input type="text" name="nombre" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Ej. Carlos Pérez">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Empresa</label>
+                                <input type="text" name="empresa" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Nombre de la empresa (Opcional)">
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Correo Electrónico *</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="carlos@empresa.com">
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Teléfono / WhatsApp</label>
+                                <input type="tel" name="telefono" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="+58 414 0000000">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Área de Interés</label>
+                            <select name="servicio" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800">
+                                <option value="Proyecto Industrial">Proyecto Industrial</option>
+                                <option value="Proyecto Residencial">Proyecto Residencial</option>
+                                <option value="Proyecto Comercial">Proyecto Comercial</option>
+                                <option value="Otro Requerimiento IPC">Otro Requerimiento IPC</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Mensaje o Detalles del Proyecto *</label>
+                            <textarea name="mensaje" rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Describa brevemente lo que necesita..."></textarea>
+                        </div>
+
+                        <button type="submit" id="submit-btn" class="w-full py-4 bg-cofer-orange hover:bg-cofer-orangeHover text-white font-bold rounded-lg transition-all shadow-md shadow-cofer-orange/30 flex items-center justify-center gap-2">
+                            <span>Enviar Solicitud</span>
+                            <i class="fa-solid fa-paper-plane text-sm"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Script AJAX para procesar el envío sin recargar la página -->
+                <script>
+                document.getElementById('contact-form').addEventListener('submit', function(e) {
+                    e.preventDefault();
+
+                    const form = this;
+                    const notification = document.getElementById('form-notification');
+                    const submitBtn = document.getElementById('submit-btn');
+                    const formData = new FormData(form);
+
+                    submitBtn.disabled = true;
+                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        notification.classList.remove('hidden', 'bg-emerald-100', 'border-emerald-300', 'text-emerald-800', 'bg-red-100', 'border-red-300', 'text-red-800');
+
+                        if (data.status === 'success') {
+                            notification.classList.add('bg-emerald-100', 'border', 'border-emerald-300', 'text-emerald-800');
+                            notification.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ${data.message}`;
+                            form.reset();
+                        } else {
+                            notification.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-800');
+                            notification.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${data.message}`;
+                        }
+                    })
+                    .catch(error => {
+                        notification.classList.remove('hidden');
+                        notification.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-800');
+                        notification.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Ocurrió un error inesperado. Por favor, inténtalo de nuevo.`;
+                    })
+                    .finally(() => {
+                        submitBtn.disabled = false;
+                        submitBtn.innerHTML = '<span>Enviar Solicitud</span> <i class="fa-solid fa-paper-plane text-sm"></i>';
+                    });
+                });
+                </script>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-cofer-dark text-slate-400 py-12 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                
+                <div class="space-y-4 md:col-span-2">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-10 flex items-center justify-center">
+                            <img src="cofer-b.svg" 
+                                 alt="COFER Logo Footer" 
+                                 class="h-full w-auto object-contain brightness-125 contrast-125" />
+                        </div>
+                    </div>
+                    <p class="text-xs text-white text-slate-400 max-w-sm leading-relaxed">
+                        Ingeniería, Procura y Construcción (IPC). Soluciones integrales para los sectores residencial, industrial y comercial en Venezuela.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Navegación</h4>
+                    <ul class="space-y-2 text-xs text-white">
+                        <li><a href="#inicio" class="hover:text-cofer-orange transition-colors">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-cofer-orange transition-colors">Nosotros</a></li>
+                        <li><a href="#servicios" class="hover:text-cofer-orange transition-colors">Servicios</a></li>
+                        <li><a href="#contacto" class="hover:text-cofer-orange transition-colors">Contacto</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Contacto</h4>
+                    <ul class="space-y-2 text-xs text-white">
+                        <li class="flex items-center gap-3">
+                            <i class="fa-solid fa-envelope text-cofer-orange"></i>
+                            <a href="mailto:info@coferca.com.ve" class="hover:text-cofer-orange transition-colors">
+                                info@coferca.com.ve
+                            </a>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fa-brands fa-instagram text-cofer-orange"></i>
+                            <a href="https://www.instagram.com/cofer_ingenieria" target="_blank" rel="noopener noreferrer" class="hover:text-cofer-orange transition-colors">
+                                @cofer_ingenieria
+                            </a>
+                        </li>
+                        <li><i class="fa-solid fa-location-dot text-cofer-orange mr-2"></i> Venezuela</li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
+                <p>&copy; 2026 COFER. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu, Modal, Notifications & Scroll Animations -->
+    <script>
+        // -------------------------------------------------------------
+        // MODAL LOGIC WITH SMOOTH FADE & SCALE ANIMATION
+        // -------------------------------------------------------------
+        const aboutModal = document.getElementById('about-modal');
+        const modalContent = document.getElementById('modal-content');
+        const openModalBtn = document.getElementById('open-modal-btn');
+        const closeModalBtn = document.getElementById('close-modal-btn');
+        const closeModalFooterBtn = document.getElementById('close-modal-footer-btn');
+
+        function openModal() {
+            aboutModal.classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Evitar scroll de la página
+            
+            // Animación sutil de entrada (opacidad y escalado)
+            setTimeout(() => {
+                aboutModal.classList.remove('opacity-0');
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeModal() {
+            // Animación sutil de salida
+            aboutModal.classList.add('opacity-0');
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                aboutModal.classList.add('hidden');
+                document.body.style.overflow = 'auto'; // Restaurar scroll
+            }, 300); // Duración equivalente a la transición CSS
+        }
+
+        if (openModalBtn) openModalBtn.addEventListener('click', openModal);
+        if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+        if (closeModalFooterBtn) closeModalFooterBtn.addEventListener('click', closeModal);
+
+        // Cerrar modal al hacer clic fuera del contenedor
+        aboutModal.addEventListener('click', (e) => {
+            if (e.target === aboutModal) {
+                closeModal();
+            }
+        });
+
+        // Cerrar modal con la tecla Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && !aboutModal.classList.contains('hidden')) {
+                closeModal();
+            }
+        });
+
+        // -------------------------------------------------------------
+        // SMART NAV LOGIC (Oculta al bajar, Reaparece al subir)
+        // -------------------------------------------------------------
+        const header = document.getElementById('main-header');
+        let lastScrollY = window.scrollY;
+
+        window.addEventListener('scroll', () => {
+            const currentScrollY = window.scrollY;
+
+            if (currentScrollY <= 80) {
+                header.classList.remove('nav-hidden');
+                lastScrollY = currentScrollY;
+                return;
+            }
+
+            if (currentScrollY > lastScrollY) {
+                header.classList.add('nav-hidden');
+            } else {
+                header.classList.remove('nav-hidden');
+            }
+
+            lastScrollY = currentScrollY;
+        });
+
+        // -------------------------------------------------------------
+        // MOBILE MENU TOGGLE
+        // -------------------------------------------------------------
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('open');
+            if (mobileMenu.classList.contains('open')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.remove('open');
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // -------------------------------------------------------------
+        // SCROLL REVEAL INTERSECTION OBSERVER
+        // -------------------------------------------------------------
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
