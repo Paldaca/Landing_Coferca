@@ -13,6 +13,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Multilingual Translations Script -->
+    <script src="translations.js"></script>
     
     <script>
         tailwind.config = {
@@ -166,26 +168,43 @@
                 </a>
 
                 <!-- Desktop Navigation -->
-                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
-                    <a href="#inicio" class="text-cofer-dark hover:text-cofer-orange transition-colors">Inicio</a>
-                    <a href="#nosotros" class="text-slate-700 hover:text-cofer-orange transition-colors">Nosotros</a>
-                    <a href="#servicios" class="text-slate-700 hover:text-cofer-orange transition-colors">Servicios</a>
-                    <a href="#proyectos" class="text-slate-700 hover:text-cofer-orange transition-colors">Proyectos</a>
-                    <a href="#clientes" class="text-slate-700 hover:text-cofer-orange transition-colors">Clientes</a>
-                    <a href="#contacto" class="text-slate-700 hover:text-cofer-orange transition-colors">Contacto</a>
+                <nav class="hidden lg:flex items-center space-x-6 xl:space-x-8 text-sm font-semibold">
+                    <a href="#inicio" class="text-cofer-dark hover:text-cofer-orange transition-colors" data-i18n="nav_home">Inicio</a>
+                    <a href="#nosotros" class="text-slate-700 hover:text-cofer-orange transition-colors" data-i18n="nav_about">Nosotros</a>
+                    <a href="#servicios" class="text-slate-700 hover:text-cofer-orange transition-colors" data-i18n="nav_services">Servicios</a>
+                    <a href="#proyectos" class="text-slate-700 hover:text-cofer-orange transition-colors" data-i18n="nav_projects">Proyectos</a>
+                    <a href="#clientes" class="text-slate-700 hover:text-cofer-orange transition-colors" data-i18n="nav_clients">Clientes</a>
+                    <a href="#contacto" class="text-slate-700 hover:text-cofer-orange transition-colors" data-i18n="nav_contacto">Contacto</a>
                 </nav>
 
-                <!-- CTA Button -->
-                <div class="hidden md:flex items-center">
-                    <a href="#contacto" class="bg-cofer-orange hover:bg-cofer-orangeHover text-white px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg shadow-cofer-orange/30 hover:shadow-cofer-orange/50 flex items-center gap-2">
-                        <span>Contactar Ahora</span>
+                <!-- Actions: Brochure Button, CTA Button & Language Switcher -->
+                <div class="hidden md:flex items-center space-x-3">
+                    <!-- Download Brochure Button -->
+                    <a href="COFER%20-%20Brochure%20(ES).pdf" download="COFER - Brochure (ES).pdf" class="brochure-download-btn inline-flex items-center gap-2 border border-slate-300 hover:border-cofer-orange text-cofer-dark hover:text-cofer-orange px-3.5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-200">
+                        <i class="fa-solid fa-file-arrow-down text-cofer-orange"></i>
+                        <span data-i18n="nav_brochure">Brochure</span>
+                    </a>
+
+                    <!-- CTA Button -->
+                    <a href="#contacto" class="bg-cofer-orange hover:bg-cofer-orangeHover text-white px-4 xl:px-5 py-2.5 rounded-lg text-sm font-semibold transition-all duration-300 shadow-lg shadow-cofer-orange/30 hover:shadow-cofer-orange/50 flex items-center gap-2">
+                        <span data-i18n="nav_contact_btn">Contactar Ahora</span>
                         <i class="fa-solid fa-arrow-right text-xs"></i>
                     </a>
+
+                    <!-- Language Switcher Pill -->
+                    <div class="flex items-center bg-slate-100 p-1 rounded-lg border border-slate-200 text-xs font-bold" id="lang-switcher-desktop">
+                        <button type="button" class="lang-btn px-2.5 py-1 rounded transition-all duration-200" data-lang="es">ES</button>
+                        <button type="button" class="lang-btn px-2.5 py-1 rounded transition-all duration-200" data-lang="en">EN</button>
+                    </div>
                 </div>
 
-                <!-- Mobile menu button -->
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-btn" type="button" class="text-cofer-dark hover:text-cofer-orange focus:outline-none p-2" aria-label="Abrir menú">
+                <!-- Mobile menu button & Mobile Language Switcher -->
+                <div class="md:hidden flex items-center space-x-2">
+                    <div class="flex items-center bg-slate-100 p-0.5 rounded-lg border border-slate-200 text-xs font-bold" id="lang-switcher-mobile">
+                        <button type="button" class="lang-btn-mobile px-2 py-1 rounded transition-all duration-200" data-lang="es">ES</button>
+                        <button type="button" class="lang-btn-mobile px-2 py-1 rounded transition-all duration-200" data-lang="en">EN</button>
+                    </div>
+                    <button id="mobile-menu-btn" type="button" class="text-cofer-dark hover:text-cofer-orange focus:outline-none p-2" aria-label="Abrir menú" data-i18n-aria="menu_open">
                         <i class="fa-solid fa-bars text-2xl" id="menu-icon"></i>
                     </button>
                 </div>
@@ -195,13 +214,19 @@
         <!-- Mobile Navigation Drawer -->
         <div class="md:hidden bg-white border-b border-slate-200" id="mobile-menu">
             <div class="px-4 pt-3 pb-6 space-y-3 text-base font-medium">
-                <a href="#inicio" class="mobile-link block px-3 py-2 rounded-md text-cofer-dark hover:bg-cofer-orange hover:text-white transition-colors">Inicio</a>
-                <a href="#nosotros" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Nosotros</a>
-                <a href="#servicios" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Servicios</a>
-                <a href="#proyectos" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Proyectos</a>
-                <a href="#clientes" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Clientes</a>
-                <a href="#contacto" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors">Contacto</a>
-                <a href="#contacto" class="mobile-link block w-full text-center mt-4 bg-cofer-orange text-white py-3 rounded-lg font-semibold shadow-md">Contactar Ahora</a>
+                <a href="#inicio" class="mobile-link block px-3 py-2 rounded-md text-cofer-dark hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_home">Inicio</a>
+                <a href="#nosotros" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_about">Nosotros</a>
+                <a href="#servicios" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_services">Servicios</a>
+                <a href="#proyectos" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_projects">Proyectos</a>
+                <a href="#clientes" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_clients">Clientes</a>
+                <a href="#contacto" class="mobile-link block px-3 py-2 rounded-md text-slate-700 hover:bg-cofer-orange hover:text-white transition-colors" data-i18n="nav_contacto">Contacto</a>
+                <div class="pt-3 border-t border-slate-100 flex flex-col gap-2">
+                    <a href="COFER%20-%20Brochure%20(ES).pdf" download="COFER - Brochure (ES).pdf" class="brochure-download-btn mobile-link flex items-center justify-center gap-2 w-full text-center border-2 border-cofer-orange text-cofer-orange hover:bg-cofer-orange hover:text-white py-2.5 rounded-lg font-semibold transition-colors">
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <span data-i18n="nav_brochure_full">Descargar Brochure</span>
+                    </a>
+                    <a href="#contacto" class="mobile-link block w-full text-center bg-cofer-orange text-white py-3 rounded-lg font-semibold shadow-md" data-i18n="nav_contact_btn">Contactar Ahora</a>
+                </div>
             </div>
         </div>
     </header>
@@ -231,14 +256,14 @@
                 <div class="lg:col-span-10 space-y-8 text-center lg:text-left reveal">
                     <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-none text-xs sm:text-sm font-semibold tracking-wide">
                         <span class="w-2 h-2 rounded-full bg-cofer-orange animate-ping"></span>
-                        <span class="text-cofer-orangeLight">20 Años de Trayectoria en Venezuela</span>
+                        <span class="text-cofer-orangeLight" data-i18n="hero_badge">20 Años de Trayectoria en Venezuela</span>
                     </div>
 
-                    <h1 class="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-tight">
+                    <h1 class="text-3xl sm:text-5xl lg:text-5xl font-extrabold tracking-tight leading-tight" data-i18n="hero_title">
                         PLANIFICACIÓN Y ACCIÓN. <br/>ASÍ DAMOS VIDA A CADA PROYECTO
                     </h1>
 
-                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed" data-i18n="hero_desc">
                         Somos especialistas en soluciones integrales de 
                         <span class="text-cofer-orange font-semibold">Ingeniería, Procura y Construcción (IPC)</span>. 
                         Impulsamos el desarrollo de infraestructuras de vanguardia.
@@ -246,22 +271,26 @@
 
                     <div class="flex flex-wrap justify-center lg:justify-start gap-3 sm:gap-4 pt-2">
                         <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
-                            <i class="fa-solid fa-house text-cofer-orange"></i> Residencial
+                            <i class="fa-solid fa-house text-cofer-orange"></i> <span data-i18n="hero_tag_res">Residencial</span>
                         </span>
                         <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
-                            <i class="fa-solid fa-industry text-cofer-orange"></i> Industrial
+                            <i class="fa-solid fa-industry text-cofer-orange"></i> <span data-i18n="hero_tag_ind">Industrial</span>
                         </span>
                         <span class="px-4 py-2 border border-slate-700 rounded-lg text-xs sm:text-sm font-medium flex items-center gap-2">
-                            <i class="fa-solid fa-building text-cofer-orange"></i> Comercial
+                            <i class="fa-solid fa-building text-cofer-orange"></i> <span data-i18n="hero_tag_com">Comercial</span>
                         </span>
                     </div>
 
                     <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-                        <a href="#servicios" class="w-full sm:w-auto px-8 py-4 bg-cofer-orange hover:bg-cofer-orangeHover text-white rounded-lg font-bold shadow-lg shadow-cofer-orange/30 transition-all text-center">
+                        <a href="#servicios" class="w-full sm:w-auto px-8 py-4 bg-cofer-orange hover:bg-cofer-orangeHover text-white rounded-lg font-bold shadow-lg shadow-cofer-orange/30 transition-all text-center" data-i18n="hero_cta_services">
                             Explorar Servicios
                         </a>
-                        <a href="#contacto" class="w-full sm:w-auto px-8 py-4 hover:bg-slate-700 border border-slate-700 text-white rounded-lg font-bold transition-all text-center">
+                        <a href="#contacto" class="w-full sm:w-auto px-8 py-4 hover:bg-slate-700 border border-slate-700 text-white rounded-lg font-bold transition-all text-center" data-i18n="hero_cta_quote">
                             Solicitar Cotización
+                        </a>
+                        <a href="COFER%20-%20Brochure%20(ES).pdf" download="COFER - Brochure (ES).pdf" class="brochure-download-btn w-full sm:w-auto px-8 py-4 bg-white/10 hover:bg-white/20 border border-white/20 text-white rounded-lg font-bold backdrop-blur-sm transition-all text-center flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-file-arrow-down text-cofer-orange"></i>
+                            <span data-i18n="hero_brochure">Descargar Brochure</span>
                         </a>
                     </div>
                 </div>
@@ -284,47 +313,47 @@
 
                 <div class="space-y-6 reveal">
                     <div>
-                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase">Sobre Nosotros</span>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2 leading-tight">
+                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase" data-i18n="about_tag">Sobre Nosotros</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2 leading-tight" data-i18n="about_title">
                             Solidez, Trayectoria e Innovación Técnica
                         </h2>
                     </div>
 
-                    <p class="text-slate-600 text-base leading-relaxed">
+                    <p class="text-slate-600 text-base leading-relaxed" data-i18n="about_p1">
                         Somos una empresa con <strong>20 años de experiencia</strong> dedicada a la ejecución de proyectos IPC 
                         (<span class="text-cofer-dark font-semibold">Ingeniería, Procura y Construcción</span>). Ofrecemos un portafolio
                         de servicios de ingeniería civil, mecánica y eléctrica, diseñados para atender las necesidades específicas en el área: 
                         <span class="text-cofer-orange font-semibold">Residencial, Industrial y Comercial</span>.
                     </p>
 
-                    <p class="text-slate-600 text-base leading-relaxed">
+                    <p class="text-slate-600 text-base leading-relaxed" data-i18n="about_p2">
                         Dos décadas de experiencia en Venezuela nos han permitido desarrollar la ejecución de proyectos integrales, 
                         garantizando eficiencia, calidad y cumplimiento en cada fase.
                     </p>
 
                     <div class="p-5 bg-slate-50 border-l-4 border-cofer-orange rounded-r-xl my-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                        <p class="text-lg font-bold text-cofer-dark italic">
+                        <p class="text-lg font-bold text-cofer-dark italic" data-i18n="about_quote">
                             "En Ingeniería Cofer, construimos con visión de futuro."
                         </p>
                         <!-- Botón para abrir Modal -->
                         <button id="open-modal-btn" class="inline-flex items-center justify-center gap-2 px-4 py-4 bg-cofer-orange text-white hover:orangeHover text-xs font-bold rounded-lg transition-colors whitespace-nowrap shadow-md">
                             <i class="fa-solid fa-bullseye text-white"></i>
-                            <span>Ver Misión, Visión y Valores</span>
+                            <span data-i18n="about_modal_btn">Ver Misión, Visión y Valores</span>
                         </button>
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-100">
                         <div>
                             <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">100%</span>
-                            <span class="text-xs text-slate-500">Compromiso</span>
+                            <span class="text-xs text-slate-500" data-i18n="stat_commitment">Compromiso</span>
                         </div>
                         <div>
                             <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">3</span>
-                            <span class="text-xs text-slate-500">Sectores Clave</span>
+                            <span class="text-xs text-slate-500" data-i18n="stat_sectors">Sectores Clave</span>
                         </div>
                         <div>
                             <span class="block text-xl sm:text-2xl font-extrabold text-cofer-dark">IPC</span>
-                            <span class="text-xs text-slate-500">Llave en Mano</span>
+                            <span class="text-xs text-slate-500" data-i18n="stat_turnkey">Llave en Mano</span>
                         </div>
                     </div>
                 </div>
@@ -337,7 +366,7 @@
     <div id="about-modal" class="fixed inset-0 z-50 hidden opacity-0 overflow-y-auto bg-slate-950/80 backdrop-blur-md flex items-center justify-center p-4 modal-backdrop-transition">
         <div id="modal-content" class="bg-slate-900/80 text-white rounded-2xl max-w-3xl w-full p-6 sm:p-8 relative shadow-2xl border border-slate-700/60 my-8 scale-95 opacity-0 modal-content-transition">
             <!-- Botón Cerrar -->
-            <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-cofer-orange p-2 transition-colors">
+            <button id="close-modal-btn" class="absolute top-4 right-4 text-slate-400 hover:text-cofer-orange p-2 transition-colors" aria-label="Cerrar modal" data-i18n-aria="modal_close_btn">
                 <i class="fa-solid fa-xmark text-2xl"></i>
             </button>
 
@@ -354,9 +383,9 @@
                 <!-- Misión -->
                 <div class="p-5 rounded-xl border-cofer-orange border border-slate-700">
                     <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-3">
-                        <i class="fa-solid fa-bullseye text-cofer-orange"></i> Misión
+                        <i class="fa-solid fa-bullseye text-cofer-orange"></i> <span data-i18n="modal_mission_title">Misión</span>
                     </h4>
-                    <p class="text-slate-300 text-sm leading-loose">
+                    <p class="text-slate-300 text-sm leading-loose" data-i18n="modal_mission_desc">
                         Ejecutar proyectos de Ingeniería, Procura y Construcción (IPC) en los sectores residencial, industrial y comercial, entregando obras seguras, funcionales y de alta especificación. Garantizar resultados a través de procesos técnicos rigurosos, una gestión eficiente de suministros y una sólida cultura de seguridad e integridad, consolidándonos como el aliado estratégico de confianza para nuestros clientes en cada etapa del proyecto.
                     </p>
                 </div>
@@ -364,9 +393,9 @@
                 <!-- Visión -->
                 <div class="p-5 rounded-xl border-blue-500 border border-slate-700">
                     <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-3">
-                        <i class="fa-solid fa-eye text-cofer-orange"></i> Visión
+                        <i class="fa-solid fa-eye text-cofer-orange"></i> <span data-i18n="modal_vision_title">Visión</span>
                     </h4>
-                    <p class="text-slate-300 text-sm leading-loose">
+                    <p class="text-slate-300 text-sm leading-loose" data-i18n="modal_vision_desc">
                         Ser la empresa referente en la ejecución integral de proyectos IPC en Venezuela, destacándonos por la excelencia operativa simultánea en el ámbito residencial, industrial y comercial. Nos proyectamos consolidados en al menos tres regiones del país, respaldados por nuestra solidez técnica, riguroso cumplimiento de plazos y presupuestos, y un Sistema de Gestión de Calidad certificado bajo la norma ISO 9001.
                     </p>
                 </div>
@@ -374,22 +403,22 @@
                 <!-- Valores Corporativos -->
                 <div class="p-5 rounded-xl border-cofer-orange border border-slate-700">
                     <h4 class="text-lg font-bold text-white flex items-center gap-2 mb-4">
-                        <i class="fa-solid fa-shield-halved text-cofer-orange"></i> Valores Corporativos
+                        <i class="fa-solid fa-shield-halved text-cofer-orange"></i> <span data-i18n="modal_values_title">Valores Corporativos</span>
                     </h4>
                     <ul class="space-y-4 text-sm text-slate-300">
-                        <li class="leading-relaxed">
+                        <li class="leading-relaxed" data-i18n="modal_val_integrity">
                             <strong class="text-white">Integridad:</strong> Cumplir rigurosamente con los alcances, costos y tiempos pactados, comunicando de manera transparente cualquier desviación del proyecto.
                         </li>
-                        <li class="leading-relaxed">
+                        <li class="leading-relaxed" data-i18n="modal_val_safety">
                             <strong class="text-white">Seguridad:</strong> Proteger la vida y la salud de nuestros trabajadores, clientes y terceros como prioridad no negociable, por encima de cualquier cronograma o presupuesto.
                         </li>
-                        <li class="leading-relaxed">
+                        <li class="leading-relaxed" data-i18n="modal_val_excellence">
                             <strong class="text-white">Excelencia técnica:</strong> Ejecutar cada diseño, cálculo y proceso constructivo bajo estrictas normativas, rechazando los atajos y las improvisaciones.
                         </li>
-                        <li class="leading-relaxed">
+                        <li class="leading-relaxed" data-i18n="modal_val_customer">
                             <strong class="text-white">Orientación al cliente:</strong> Comprender las necesidades operativas del cliente —ya sea para vivir, producir o comercializar— para ir más allá de lo planteado en un plano.
                         </li>
-                        <li class="leading-relaxed">
+                        <li class="leading-relaxed" data-i18n="modal_val_responsibility">
                             <strong class="text-white">Responsabilidad y cumplimiento:</strong> Asegurar la sostenibilidad financiera, ambiental y contractual en cada obra que ejecutamos.
                         </li>
                     </ul>
@@ -397,7 +426,7 @@
             </div>
 
             <div class="mt-6 pt-4 border-t border-slate-700/80 text-right">
-                <button id="close-modal-footer-btn" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-lg text-sm transition-colors border border-slate-600">
+                <button id="close-modal-footer-btn" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold rounded-lg text-sm transition-colors border border-slate-600" data-i18n="modal_close_btn">
                     Cerrar
                 </button>
             </div>
@@ -408,7 +437,7 @@
     <section id="clientes" class="py-40 bg-cofer-dark text-white border-y border-slate-800 overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 mb-8 text-center">
             
-            <h2 class="text-4xl font-bold text-cofer-orange mt-1">Confianza & Respaldos Corporativos</h2>
+            <h2 class="text-4xl font-bold text-cofer-orange mt-1" data-i18n="clients_title">Confianza & Respaldos Corporativos</h2>
             <br/><br/>
         </div>
 
@@ -470,8 +499,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             
             <div class="text-center max-w-3xl mx-auto mb-16 reveal">
-                <h2 class="text-4xl sm:text-4xl font-extrabold text-cofer-dark mt-2">Nuestros Servicios</h2>
-                <p class="text-slate-600 mt-4 text-base">
+                <h2 class="text-4xl sm:text-4xl font-extrabold text-cofer-dark mt-2" data-i18n="services_title">Nuestros Servicios</h2>
+                <p class="text-slate-600 mt-4 text-base" data-i18n="services_subtitle">
                     Diseñados para atender las demandas técnicas y estructurales más exigentes de Venezuela.
                 </p>
             </div>
@@ -489,43 +518,43 @@
                             <div class="p-2.5 bg-cofer-orange rounded-lg">
                                 <i class="fa-solid fa-house text-xl"></i>
                             </div>
-                            <h3 class="text-xl font-bold">Área Residencial</h3>
+                            <h3 class="text-xl font-bold" data-i18n="service_residential_title">Área Residencial</h3>
                         </div>
                     </div>
 
                     <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="service_residential_desc">
                                 Convertimos ideas en espacios habitables de calidad. Ya sea que desee construir una vivienda unifamiliar desde cero, o llevar a cabo una remodelación de alto impacto, Cofer es su aliado estratégico.
                             </p>
 
-                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2" data-i18n="service_lbl_services">
                                 Servicios:
                             </h4>
 
                             <ul class="space-y-3 text-sm text-slate-700">
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Construcción Civil</span>
+                                    <span data-i18n="service_res_item1">Construcción Civil</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Instalaciones eléctricas, mecánicas y gas</span>
+                                    <span data-i18n="service_res_item2">Instalaciones eléctricas, mecánicas y gas</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Diseño y Remodelaciones</span>
+                                    <span data-i18n="service_res_item3">Diseño y Remodelaciones</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Gerencia de Obras</span>
+                                    <span data-i18n="service_res_item4">Gerencia de Obras</span>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="mt-8 pt-4 border-t border-slate-100">
                             <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
-                                <span>Consultar Proyecto</span>
+                                <span data-i18n="service_inquire">Consultar Proyecto</span>
                                 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
                         </div>
@@ -543,47 +572,47 @@
                             <div class="p-2.5 bg-cofer-orange rounded-lg">
                                 <i class="fa-solid fa-industry text-xl"></i>
                             </div>
-                            <h3 class="text-xl font-bold">Área Industrial</h3>
+                            <h3 class="text-xl font-bold" data-i18n="service_industrial_title">Área Industrial</h3>
                         </div>
                     </div>
 
                     <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="service_industrial_desc">
                                 La infraestructura y maquinaria de su empresa son la base de su productividad. Ofrecemos servicios multidisciplinarios para mantener sus plantas operando con máxima eficiencia y confiabilidad.
                             </p>
 
-                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2" data-i18n="service_lbl_services">
                                 Servicios:
                             </h4>
 
                             <ul class="space-y-3 text-sm text-slate-700">
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Proyectos de Ingeniería</span>
+                                    <span data-i18n="service_ind_item1">Proyectos de Ingeniería</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Mantenimiento y reparación de tanques</span>
+                                    <span data-i18n="service_ind_item2">Mantenimiento y reparación de tanques</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Servicios Eléctricos y Mecánicos</span>
+                                    <span data-i18n="service_ind_item3">Servicios Eléctricos y Mecánicos</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Fabricación de estructuras metálicas y galpones</span>
+                                    <span data-i18n="service_ind_item4">Fabricación de estructuras metálicas y galpones</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Construcción Civil con estándares de calidad</span>
+                                    <span data-i18n="service_ind_item5">Construcción Civil con estándares de calidad</span>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="mt-8 pt-4 border-t border-slate-100">
                             <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
-                                <span>Consultar Proyecto</span>
+                                <span data-i18n="service_inquire">Consultar Proyecto</span>
                                 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
                         </div>
@@ -601,43 +630,43 @@
                             <div class="p-2.5 bg-cofer-orange rounded-lg">
                                 <i class="fa-solid fa-building text-xl"></i>
                             </div>
-                            <h3 class="text-xl font-bold">Área Comercial</h3>
+                            <h3 class="text-xl font-bold" data-i18n="service_commercial_title">Área Comercial</h3>
                         </div>
                     </div>
 
                     <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
                         <div>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-6">
+                            <p class="text-slate-600 text-sm leading-relaxed mb-6" data-i18n="service_commercial_desc">
                                 Diseñamos y ejecutamos espacios comerciales funcionales que potencian el atractivo corporativo de su marca, cumpliendo estrictas regulaciones urbanísticas y técnicas.
                             </p>
 
-                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2">
+                            <h4 class="font-bold text-slate-800 text-xs uppercase tracking-wider mb-4 border-b border-slate-100 pb-2" data-i18n="service_lbl_services">
                                 Servicios:
                             </h4>
 
                             <ul class="space-y-3 text-sm text-slate-700">
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Remodelación e interiorismo comercial</span>
+                                    <span data-i18n="service_com_item1">Remodelación e interiorismo comercial</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Adecuación de locales y oficinas</span>
+                                    <span data-i18n="service_com_item2">Adecuación de locales y oficinas</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Mantenimiento de infraestructura e iluminación</span>
+                                    <span data-i18n="service_com_item3">Mantenimiento de infraestructura e iluminación</span>
                                 </li>
                                 <li class="flex items-start gap-3">
                                     <i class="fa-solid fa-circle-check text-cofer-orange mt-1"></i>
-                                    <span>Sistemas de climatización y seguridad</span>
+                                    <span data-i18n="service_com_item4">Sistemas de climatización y seguridad</span>
                                 </li>
                             </ul>
                         </div>
 
                         <div class="mt-8 pt-4 border-t border-slate-100">
                             <a href="#contacto" class="text-cofer-orange font-bold text-sm flex items-center justify-between group">
-                                <span>Consultar Proyecto</span>
+                                <span data-i18n="service_inquire">Consultar Proyecto</span>
                                 <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
                             </a>
                         </div>
@@ -653,9 +682,9 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="text-center max-w-3xl mx-auto mb-10 reveal">
-                <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase">Experiencia en el Sector Petrolero</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2">Obras y Proyectos</h2>
-                <p class="text-slate-600 mt-4 text-base">
+                <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase" data-i18n="projects_tag">Experiencia en el Sector Petrolero</span>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2" data-i18n="projects_title">Obras y Proyectos</h2>
+                <p class="text-slate-600 mt-4 text-base" data-i18n="projects_subtitle">
                     Trabajos eléctricos, mecánicos y de puesta a tierra en la Refinería de Puerto La Cruz y el Mejorador Petro San Félix.
                 </p>
             </div>
@@ -664,7 +693,7 @@
                 <div class="p-2.5 bg-cofer-orange/10 rounded-lg text-cofer-orange shrink-0">
                     <i class="fa-solid fa-handshake text-xl"></i>
                 </div>
-                <p class="text-slate-600 text-sm leading-relaxed">
+                <p class="text-slate-600 text-sm leading-relaxed" data-i18n="projects_subcontractor_note">
                     <strong class="text-cofer-dark">Participación como subcontratista.</strong>
                     Estos proyectos fueron contratados y ejecutados principalmente por <strong class="text-cofer-dark">Consorcio PALDACA</strong>
                     como contratista principal de PDVSA. Ingeniería Cofer participó en ellos como empresa subcontratista.
@@ -675,112 +704,112 @@
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-bolt"></i> Eléctrica
+                            <i class="fa-solid fa-bolt"></i> <span data-i18n="badge_electrical">Eléctrica</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Adecuación de la subestación eléctrica compacta patio de celdas del sistema eléctrico de la Refinería de Puerto la Cruz, plan de restitución operacional Centro de Refinación Oriente (CRO)</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project1_title">Adecuación de la subestación eléctrica compacta patio de celdas del sistema eléctrico de la Refinería de Puerto la Cruz, plan de restitución operacional Centro de Refinación Oriente (CRO)</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Refinería Puerto La Cruz</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4620013601</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project1_loc">Refinería Puerto La Cruz</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project1_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project1_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project1_contract">Contrato Nº 4620013601</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-bolt"></i> Eléctrica
+                            <i class="fa-solid fa-bolt"></i> <span data-i18n="badge_electrical">Eléctrica</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Adecuación de la planta eléctrica barras A y B 13.8KV, Refinería de Puerto la Cruz</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project2_title">Adecuación de la planta eléctrica barras A y B 13.8KV, Refinería de Puerto la Cruz</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Refinería Puerto La Cruz</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4620015493</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project2_loc">Refinería Puerto La Cruz</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project2_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project2_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project2_contract">Contrato Nº 4620015493</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-bolt"></i> Eléctrica
+                            <i class="fa-solid fa-bolt"></i> <span data-i18n="badge_electrical">Eléctrica</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Reacondicionamiento del sistema eléctrico, aires acondicionados y trabajos generales de las unidades de hidroprocesos de la Refinería de Puerto la Cruz</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project3_title">Reacondicionamiento del sistema eléctrico, aires acondicionados y trabajos generales de las unidades de hidroprocesos de la Refinería de Puerto la Cruz</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Refinería Puerto La Cruz</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4620020613</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project3_loc">Refinería Puerto La Cruz</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project3_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project3_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project3_contract">Contrato Nº 4620020613</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal proyecto-extra hidden">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-gears"></i> Mecánica
+                            <i class="fa-solid fa-gears"></i> <span data-i18n="badge_mechanical">Mecánica</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Mantenimiento de bombas del sistema contraincendios de las áreas de tanques TQ-97X1/2 de la Refinería de Puerto la Cruz y la estación del Chaure</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project4_title">Mantenimiento de bombas del sistema contraincendios de las áreas de tanques TQ-97X1/2 de la Refinería de Puerto la Cruz y la estación del Chaure</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Refinería Puerto La Cruz / El Chaure</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4600129214</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project4_loc">Refinería Puerto La Cruz / El Chaure</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project4_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project4_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project4_contract">Contrato Nº 4600129214</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal proyecto-extra hidden">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-bolt"></i> Eléctrica
+                            <i class="fa-solid fa-bolt"></i> <span data-i18n="badge_electrical">Eléctrica</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Mantenimiento mayor centro de control de motores nivel de tensión 2.4-0.48KV servicios industriales Refinería de Puerto la Cruz. Complejo Refinador Oriente</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project5_title">Mantenimiento mayor centro de control de motores nivel de tensión 2.4-0.48KV servicios industriales Refinería de Puerto la Cruz. Complejo Refinador Oriente</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Refinería Puerto La Cruz</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4600129906</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project5_loc">Refinería Puerto La Cruz</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project5_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project5_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project5_contract">Contrato Nº 4600129906</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal proyecto-extra hidden">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-plug-circle-bolt"></i> Puesta a Tierra
+                            <i class="fa-solid fa-plug-circle-bolt"></i> <span data-i18n="badge_grounding">Puesta a Tierra</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Diagnóstico y reparación del sistema de puesta a tierra de la subestación Jose 400</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project6_title">Diagnóstico y reparación del sistema de puesta a tierra de la subestación Jose 400</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Subestación Jose 400</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · Refinación Oriente</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato Nº 4600130328</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project6_loc">Subestación Jose 400</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project6_client">Cliente: PDVSA · Refinación Oriente</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project6_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project6_contract">Contrato Nº 4600130328</span></li>
                     </ul>
                 </article>
 
                 <article class="w-full md:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)] bg-white rounded-2xl border border-slate-200/80 p-6 card-hover flex flex-col reveal proyecto-extra hidden">
                     <div class="mb-4">
                         <span class="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-cofer-orange bg-cofer-orange/10 px-3 py-1.5 rounded-full">
-                            <i class="fa-solid fa-plug-circle-bolt"></i> Puesta a Tierra
+                            <i class="fa-solid fa-plug-circle-bolt"></i> <span data-i18n="badge_grounding">Puesta a Tierra</span>
                         </span>
                     </div>
-                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1">Mantenimiento del sistema de Protección Catódica de los tanques de almacenamiento del Mejorador Petro San Félix, S.A</h3>
+                    <h3 class="text-cofer-dark font-bold text-[15px] leading-snug mb-5 flex-1" data-i18n="project7_title">Mantenimiento del sistema de Protección Catódica de los tanques de almacenamiento del Mejorador Petro San Félix, S.A</h3>
                     <ul class="pt-4 border-t border-slate-100 space-y-2 text-xs text-slate-500">
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span>Mejorador Petro San Félix</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span>Cliente: PDVSA · CVP · Empresa Mixta Petro San Félix</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span>Contratista principal: Consorcio PALDACA</span></li>
-                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span>Contrato por Alianza Estratégica</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-location-dot text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project7_loc">Mejorador Petro San Félix</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-building text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project7_client">Cliente: PDVSA · CVP · Empresa Mixta Petro San Félix</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-handshake text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project7_contractor">Contratista principal: Consorcio PALDACA</span></li>
+                        <li class="flex items-start gap-2"><i class="fa-solid fa-file-contract text-cofer-orange w-3 mt-0.5"></i><span data-i18n="project7_contract">Contrato por Alianza Estratégica</span></li>
                     </ul>
                 </article>
             </div>
 
             <div class="text-center mt-10">
                 <button type="button" id="proyectos-toggle" aria-expanded="false" aria-controls="proyectos-grid" class="inline-flex items-center gap-2 px-6 py-3 border-2 border-cofer-orange text-cofer-orange hover:bg-cofer-orange hover:text-white font-bold rounded-lg text-sm transition-colors">
-                    <span>Ver más proyectos</span>
+                    <span data-i18n="proyectos_btn_more">Ver más proyectos</span>
                     <i class="fa-solid fa-chevron-down"></i>
                 </button>
             </div>
@@ -792,9 +821,9 @@
     <section class="py-20 bg-cofer-dark text-white relative overflow-hidden">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center max-w-3xl mx-auto mb-16">
-                <span class="text-cofer-orange font-bold uppercase text-xs tracking-widest">Ventaja Competitiva</span>
-                <h2 class="text-3xl sm:text-4xl font-black tracking-tight mt-1 mb-4">¿Por qué elegir a INGENIERÍA COFER?</h2>
-                <p class="text-slate-400 text-base sm:text-lg">Nos respaldan procedimientos rigurosos de contratación y ejecución con clientes industriales exigentes.</p>
+                <span class="text-cofer-orange font-bold uppercase text-xs tracking-widest" data-i18n="value_tag">Ventaja Competitiva</span>
+                <h2 class="text-3xl sm:text-4xl font-black tracking-tight mt-1 mb-4" data-i18n="value_title">¿Por qué elegir a INGENIERÍA COFER?</h2>
+                <p class="text-slate-400 text-base sm:text-lg" data-i18n="value_subtitle">Nos respaldan procedimientos rigurosos de contratación y ejecución con clientes industriales exigentes.</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -804,8 +833,8 @@
                         <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
                             <i class="fa-solid fa-compass-drafting"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Planificación</h3>
-                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-white mb-3" data-i18n="value1_title">Planificación</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed" data-i18n="value1_desc">
                             Planificamos cada etapa con análisis de factibilidad, diseño conceptual y control preciso de recursos, optimizando los tiempos de ejecución IPC para evitar imprevistos y garantizar la rentabilidad.
                         </p>
                     </div>
@@ -817,8 +846,8 @@
                         <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
                             <i class="fa-solid fa-chart-line"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Seguimiento</h3>
-                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-white mb-3" data-i18n="value2_title">Seguimiento</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed" data-i18n="value2_desc">
                             Monitoreamos continuamente el avance. Coordinamos la procura de materiales e insumos en tiempo real para garantizar un flujo de trabajo constante y alineado con los hitos establecidos.
                         </p>
                     </div>
@@ -830,8 +859,8 @@
                         <div class="w-14 h-14 bg-cofer-orange/10 rounded-xl flex items-center justify-center text-cofer-orange text-2xl mb-6">
                             <i class="fa-solid fa-list-check"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Control</h3>
-                        <p class="text-slate-600 text-white text-sm leading-relaxed">
+                        <h3 class="text-xl font-bold text-white mb-3" data-i18n="value3_title">Control</h3>
+                        <p class="text-slate-600 text-white text-sm leading-relaxed" data-i18n="value3_desc">
                             Aseguramos la máxima calidad (QA/QC) y el cumplimiento de normativas de seguridad e ingeniería en cada etapa, garantizando la entrega final impecable de su proyecto.
                         </p>
                     </div>
@@ -848,9 +877,9 @@
                 <!-- Contact Info -->
                 <div class="lg:col-span-5 space-y-8 reveal">
                     <div>
-                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase">Atención Inmediata</span>
-                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2">Hablemos de su Próximo Proyecto</h2>
-                        <p class="text-slate-600 mt-4 text-sm sm:text-base">
+                        <span class="text-cofer-orange font-bold text-xs sm:text-sm tracking-widest uppercase" data-i18n="contact_tag">Atención Inmediata</span>
+                        <h2 class="text-3xl sm:text-4xl font-extrabold text-cofer-dark mt-2" data-i18n="contact_title">Hablemos de su Próximo Proyecto</h2>
+                        <p class="text-slate-600 mt-4 text-sm sm:text-base" data-i18n="contact_subtitle">
                             Estamos listos para brindarle la mejor propuesta adaptada a sus requerimientos técnicos y presupuestarios.
                         </p>
                     </div>
@@ -861,8 +890,8 @@
                                 <i class="fa-solid fa-location-dot text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-cofer-dark text-sm">Ubicación</h4>
-                                <p class="text-xs text-slate-600 mt-1">Caracas y Anzoátegui</p>
+                                <h4 class="font-bold text-cofer-dark text-sm" data-i18n="contact_location_title">Ubicación</h4>
+                                <p class="text-xs text-slate-600 mt-1" data-i18n="contact_location_val">Caracas y Anzoátegui</p>
                             </div>
                         </div>
 
@@ -871,7 +900,7 @@
                                 <i class="fa-solid fa-envelope text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-cofer-dark text-sm">Correo Electrónico</h4>
+                                <h4 class="font-bold text-cofer-dark text-sm" data-i18n="contact_email_title">Correo Electrónico</h4>
                                 <p class="text-xs text-slate-600 mt-1">info@cofer.com.ve</p>
                             </div>
                         </div>
@@ -881,7 +910,7 @@
                                 <i class="fa-brands fa-whatsapp text-xl"></i>
                             </div>
                             <div>
-                                <h4 class="font-bold text-cofer-dark text-sm">Whatsapp</h4>
+                                <h4 class="font-bold text-cofer-dark text-sm" data-i18n="contact_whatsapp_title">Whatsapp</h4>
                                 <p class="text-xs text-slate-600 mt-1">+58 (412) 2768540</p>
                             </div>
                         </div>
@@ -891,52 +920,52 @@
                 <!-- Form -->
                 <div class="lg:col-span-7 reveal">
                     <form id="contact-form" action="contacto.php" method="POST" class="bg-cofer-lightBg p-8 sm:p-10 rounded-2xl border border-slate-200/80 shadow-lg space-y-6">
-                        <h3 class="text-xl font-bold text-cofer-dark mb-4">Enviar Mensaje Directo</h3>
+                        <h3 class="text-xl font-bold text-cofer-dark mb-4" data-i18n="form_title">Enviar Mensaje Directo</h3>
 
                         <!-- Mensaje de notificación / respuesta -->
                         <div id="form-notification" class="hidden p-4 rounded-lg text-sm font-semibold transition-all"></div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Nombre Completo *</label>
-                                <input type="text" name="nombre" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Ej. Carlos Pérez">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_name_label">Nombre Completo *</label>
+                                <input type="text" name="nombre" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Ej. Carlos Pérez" data-i18n-placeholder="form_name_ph">
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Empresa</label>
-                                <input type="text" name="empresa" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Nombre de la empresa (Opcional)">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_company_label">Empresa</label>
+                                <input type="text" name="empresa" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Nombre de la empresa (Opcional)" data-i18n-placeholder="form_company_ph">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Correo Electrónico *</label>
-                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="carlos@empresa.com">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_email_label">Correo Electrónico *</label>
+                                <input type="email" name="email" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="carlos@empresa.com" data-i18n-placeholder="form_email_ph">
                             </div>
 
                             <div>
-                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Teléfono / WhatsApp</label>
-                                <input type="tel" name="telefono" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="+58 414 0000000">
+                                <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_phone_label">Teléfono / WhatsApp</label>
+                                <input type="tel" name="telefono" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="+58 414 0000000" data-i18n-placeholder="form_phone_ph">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Área de Interés</label>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_service_label">Área de Interés</label>
                             <select name="servicio" class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800">
-                                <option value="Proyecto Industrial">Proyecto Industrial</option>
-                                <option value="Proyecto Residencial">Proyecto Residencial</option>
-                                <option value="Proyecto Comercial">Proyecto Comercial</option>
-                                <option value="Otro Requerimiento IPC">Otro Requerimiento IPC</option>
+                                <option value="Proyecto Industrial" data-i18n="form_opt_industrial">Proyecto Industrial</option>
+                                <option value="Proyecto Residencial" data-i18n="form_opt_residential">Proyecto Residencial</option>
+                                <option value="Proyecto Comercial" data-i18n="form_opt_commercial">Proyecto Comercial</option>
+                                <option value="Otro Requerimiento IPC" data-i18n="form_opt_other">Otro Requerimiento IPC</option>
                             </select>
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Mensaje o Detalles del Proyecto *</label>
-                            <textarea name="mensaje" rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Describa brevemente lo que necesita..."></textarea>
+                            <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2" data-i18n="form_message_label">Mensaje o Detalles del Proyecto *</label>
+                            <textarea name="mensaje" rows="4" required class="w-full px-4 py-3 rounded-lg bg-white border border-slate-300 focus:outline-none focus:border-cofer-orange text-sm text-slate-800" placeholder="Describa brevemente lo que necesita..." data-i18n-placeholder="form_message_ph"></textarea>
                         </div>
 
                         <button type="submit" id="submit-btn" class="w-full py-4 bg-cofer-orange hover:bg-cofer-orangeHover text-white font-bold rounded-lg transition-all shadow-md shadow-cofer-orange/30 flex items-center justify-center gap-2">
-                            <span>Enviar Solicitud</span>
+                            <span data-i18n="form_submit_btn">Enviar Solicitud</span>
                             <i class="fa-solid fa-paper-plane text-sm"></i>
                         </button>
                     </form>
@@ -952,8 +981,13 @@
                     const submitBtn = document.getElementById('submit-btn');
                     const formData = new FormData(form);
 
+                    const lang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'es';
+                    const sendingText = (window.i18nData && i18nData[lang]) ? i18nData[lang].form_sending : 'Enviando...';
+                    const defaultErrorText = (window.i18nData && i18nData[lang]) ? i18nData[lang].form_error : 'Ocurrió un error inesperado. Por favor, inténtalo de nuevo.';
+                    const submitBtnText = (window.i18nData && i18nData[lang]) ? i18nData[lang].form_submit_btn : 'Enviar Solicitud';
+
                     submitBtn.disabled = true;
-                    submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+                    submitBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> ${sendingText}`;
 
                     fetch(form.action, {
                         method: 'POST',
@@ -964,8 +998,9 @@
                         notification.classList.remove('hidden', 'bg-emerald-100', 'border-emerald-300', 'text-emerald-800', 'bg-red-100', 'border-red-300', 'text-red-800');
 
                         if (data.status === 'success') {
+                            const successMsg = (lang === 'en' && window.i18nData) ? i18nData.en.form_success : data.message;
                             notification.classList.add('bg-emerald-100', 'border', 'border-emerald-300', 'text-emerald-800');
-                            notification.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ${data.message}`;
+                            notification.innerHTML = `<i class="fa-solid fa-circle-check mr-2"></i> ${successMsg}`;
                             form.reset();
                         } else {
                             notification.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-800');
@@ -975,11 +1010,11 @@
                     .catch(error => {
                         notification.classList.remove('hidden');
                         notification.classList.add('bg-red-100', 'border', 'border-red-300', 'text-red-800');
-                        notification.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> Ocurrió un error inesperado. Por favor, inténtalo de nuevo.`;
+                        notification.innerHTML = `<i class="fa-solid fa-triangle-exclamation mr-2"></i> ${defaultErrorText}`;
                     })
                     .finally(() => {
                         submitBtn.disabled = false;
-                        submitBtn.innerHTML = '<span>Enviar Solicitud</span> <i class="fa-solid fa-paper-plane text-sm"></i>';
+                        submitBtn.innerHTML = `<span>${submitBtnText}</span> <i class="fa-solid fa-paper-plane text-sm"></i>`;
                     });
                 });
                 </script>
@@ -1001,24 +1036,30 @@
                                  class="h-full w-auto object-contain brightness-125 contrast-125" />
                         </div>
                     </div>
-                    <p class="text-xs text-white text-slate-400 max-w-sm leading-relaxed">
+                    <p class="text-xs text-white text-slate-400 max-w-sm leading-relaxed" data-i18n="footer_desc">
                         Ingeniería, Procura y Construcción (IPC). Soluciones integrales para los sectores residencial, industrial y comercial en Venezuela.
                     </p>
                 </div>
 
                 <div>
-                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Navegación</h4>
+                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4" data-i18n="footer_nav_title">Navegación</h4>
                     <ul class="space-y-2 text-xs text-white">
-                        <li><a href="#inicio" class="hover:text-cofer-orange transition-colors">Inicio</a></li>
-                        <li><a href="#nosotros" class="hover:text-cofer-orange transition-colors">Nosotros</a></li>
-                        <li><a href="#servicios" class="hover:text-cofer-orange transition-colors">Servicios</a></li>
-                        <li><a href="#proyectos" class="hover:text-cofer-orange transition-colors">Proyectos</a></li>
-                        <li><a href="#contacto" class="hover:text-cofer-orange transition-colors">Contacto</a></li>
+                        <li><a href="#inicio" class="hover:text-cofer-orange transition-colors" data-i18n="nav_home">Inicio</a></li>
+                        <li><a href="#nosotros" class="hover:text-cofer-orange transition-colors" data-i18n="nav_about">Nosotros</a></li>
+                        <li><a href="#servicios" class="hover:text-cofer-orange transition-colors" data-i18n="nav_services">Servicios</a></li>
+                        <li><a href="#proyectos" class="hover:text-cofer-orange transition-colors" data-i18n="nav_projects">Proyectos</a></li>
+                        <li><a href="#contacto" class="hover:text-cofer-orange transition-colors" data-i18n="nav_contacto">Contacto</a></li>
+                        <li>
+                            <a href="COFER%20-%20Brochure%20(ES).pdf" download="COFER - Brochure (ES).pdf" class="brochure-download-btn inline-flex items-center gap-1.5 hover:text-cofer-orange transition-colors">
+                                <i class="fa-solid fa-file-arrow-down text-cofer-orange text-xs"></i>
+                                <span data-i18n="footer_brochure">Descargar Brochure (PDF)</span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4">Contacto</h4>
+                    <h4 class="text-white text-sm font-bold uppercase tracking-wider mb-4" data-i18n="footer_contact_title">Contacto</h4>
                     <ul class="space-y-2 text-xs text-white">
                         <li class="flex items-center gap-3">
                             <i class="fa-solid fa-envelope text-cofer-orange"></i>
@@ -1032,14 +1073,14 @@
                                 @cofer_ingenieria
                             </a>
                         </li>
-                        <li><i class="fa-solid fa-location-dot text-cofer-orange mr-2"></i> Venezuela</li>
+                        <li data-i18n="footer_location"><i class="fa-solid fa-location-dot text-cofer-orange mr-2"></i> Venezuela</li>
                     </ul>
                 </div>
 
             </div>
 
             <div class="pt-8 border-t border-slate-800 text-center text-xs text-slate-500">
-                <p>&copy; 2026 COFER. Todos los derechos reservados.</p>
+                <p data-i18n="footer_rights">&copy; 2026 COFER. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>
@@ -1172,9 +1213,13 @@
 
         proyectosToggle.addEventListener('click', () => {
             const expandido = proyectosToggle.getAttribute('aria-expanded') === 'true';
+            const lang = typeof getCurrentLanguage === 'function' ? getCurrentLanguage() : 'es';
+            const moreText = (window.i18nData && i18nData[lang]) ? i18nData[lang].proyectos_btn_more : 'Ver más proyectos';
+            const lessText = (window.i18nData && i18nData[lang]) ? i18nData[lang].proyectos_btn_less : 'Ver menos';
+
             proyectosExtra.forEach(card => card.classList.toggle('hidden', expandido));
             proyectosToggle.setAttribute('aria-expanded', String(!expandido));
-            proyectosToggle.querySelector('span').textContent = expandido ? 'Ver más proyectos' : 'Ver menos';
+            proyectosToggle.querySelector('span').textContent = expandido ? moreText : lessText;
             proyectosToggle.querySelector('i').className = expandido ? 'fa-solid fa-chevron-down' : 'fa-solid fa-chevron-up';
             if (expandido) document.getElementById('proyectos').scrollIntoView({ behavior: 'smooth' });
         });
